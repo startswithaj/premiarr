@@ -1,0 +1,23 @@
+services:
+  premiarr:
+    build: .
+    container_name: premiarr
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TELEGRAM_TOPIC_ID=${TELEGRAM_TOPIC_ID:-}
+      - SEERR_URL=${SEERR_URL}
+      - SEERR_API_KEY=${SEERR_API_KEY}
+      - RT_TV_FILTER=${RT_TV_FILTER:-critics:fresh~sort:newest}
+      - RT_MOVIE_FILTER=${RT_MOVIE_FILTER:-critics:fresh~sort:newest}
+      - DAILY_CRON=${DAILY_CRON:-0 8 * * *}
+      - RUN_MODE=${RUN_MODE:-daemon}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - RUN_ON_STARTUP=${RUN_ON_STARTUP:-false}
+      - DB_PATH=/app/data/premiarr.db
+    volumes:
+      - premiarr-data:/app/data
+
+volumes:
+  premiarr-data:
