@@ -42,7 +42,10 @@ src/
 └── utils/
     ├── config.ts            # Environment config loader
     ├── dateUtils.ts         # Date parsing utilities
-    └── helpers.ts           # Shared helper functions
+    ├── helpers.ts           # Shared helper functions
+    ├── ipv4Fetch.ts         # IPv4-forced fetch for Telegram API
+    ├── logger.ts            # Configurable logging
+    └── telegramFormatters.ts # Message formatting utilities
 ```
 
 ## Configuration
@@ -136,29 +139,6 @@ docker-compose up -d
 ```
 
 The `docker-compose.yml` file is configured with all environment variables and a named volume for persistent data.
-
-## Kubernetes
-
-A sample Kubernetes configuration is available. Key components:
-
-1. **PersistentVolume/PersistentVolumeClaim**: For SQLite database persistence
-2. **Secret**: Store sensitive values (bot token, API keys)
-3. **StatefulSet**: Single replica with persistent storage
-
-Example secret:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: premiarr-secret
-type: Opaque
-stringData:
-  TELEGRAM_BOT_TOKEN: "your-bot-token"
-  TELEGRAM_CHAT_ID: "your-chat-id"
-  TELEGRAM_TOPIC_ID: "optional-topic-id"
-  SEERR_API_KEY: "your-seerr-api-key"
-```
 
 ## Telegram Commands
 
