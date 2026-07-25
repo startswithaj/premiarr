@@ -19,7 +19,11 @@ export class Premiarr {
   constructor(config: Config) {
     this.config = config;
     this.rtClient = new RottenTomatoesClient();
-    this.seerrClient = new SeerrClient(config.seerr.url, config.seerr.apiKey);
+    this.seerrClient = new SeerrClient(
+      config.seerr.url,
+      config.seerr.apiKey,
+      config.seerr.userId
+    );
     this.telegramBot = createTelegramBot(
       config.telegram.botToken,
       config.telegram.chatId,

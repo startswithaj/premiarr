@@ -16,6 +16,9 @@ export function loadConfig(): Config {
   const topicIdStr = process.env['TELEGRAM_TOPIC_ID'];
   const topicId = topicIdStr ? parseInt(topicIdStr, 10) : undefined;
 
+  const seerrUserIdStr = process.env['SEERR_USER_ID'];
+  const seerrUserId = seerrUserIdStr ? parseInt(seerrUserIdStr, 10) : undefined;
+
   return {
     telegram: {
       botToken: required('TELEGRAM_BOT_TOKEN'),
@@ -25,6 +28,7 @@ export function loadConfig(): Config {
     seerr: {
       url: required('SEERR_URL'),
       apiKey: required('SEERR_API_KEY'),
+      userId: seerrUserId && !isNaN(seerrUserId) ? seerrUserId : undefined,
     },
     schedule: {
       dailyCron: optional('DAILY_CRON', '0 8 * * *'),

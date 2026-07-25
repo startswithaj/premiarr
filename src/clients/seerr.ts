@@ -10,10 +10,12 @@ import { logger } from '../utils/logger.js';
 export class SeerrClient {
   private baseUrl: string;
   private apiKey: string;
+  private userId: number | undefined;
 
-  constructor(baseUrl: string, apiKey: string) {
+  constructor(baseUrl: string, apiKey: string, userId?: number) {
     this.baseUrl = baseUrl.replace(/\/$/, ''); // Remove trailing slash
     this.apiKey = apiKey;
+    this.userId = userId;
   }
 
   private async request<T>(
@@ -92,6 +94,7 @@ export class SeerrClient {
       mediaType: 'tv';
       is4k: boolean;
       seasons?: number[];
+      userId?: number;
     } = {
       mediaId: tmdbId,
       mediaType: 'tv',
@@ -100,6 +103,10 @@ export class SeerrClient {
 
     if (seasons && seasons.length > 0) {
       body.seasons = seasons;
+    }
+
+    if (this.userId !== undefined) {
+      body.userId = this.userId;
     }
 
     logger.debug(`[SEERR] POST /request body:`, JSON.stringify(body));
@@ -119,6 +126,10 @@ export class SeerrClient {
       mediaType: 'movie',
       is4k,
     };
+
+    if (this.userId !== undefined) {
+      body.userId = this.userId;
+    }
 
     logger.debug(`[SEERR] POST /request body:`, JSON.stringify(body));
 

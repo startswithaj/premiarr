@@ -106,6 +106,8 @@ export interface SeerrRequestBody {
   mediaType: 'tv' | 'movie';
   seasons?: number[];
   is4k?: boolean;
+  // Attributes the request to a specific Seerr user instead of the API key owner
+  userId?: number;
 }
 
 // Internal types
@@ -135,6 +137,7 @@ export interface Config {
   seerr: {
     url: string;
     apiKey: string;
+    userId?: number;
   };
   schedule: {
     dailyCron: string;

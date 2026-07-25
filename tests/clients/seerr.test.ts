@@ -223,6 +223,33 @@ describe('SeerrClient', () => {
       const body = JSON.parse(call[1].body);
       expect(body.is4k).toBe(true);
     });
+
+    it('omits userId when not configured', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ id: 1 }),
+      });
+
+      await client.requestTv(12345);
+
+      const call = mockFetch.mock.calls[0];
+      const body = JSON.parse(call[1].body);
+      expect(body.userId).toBeUndefined();
+    });
+
+    it('attributes the request to userId when configured', async () => {
+      const clientWithUser = new SeerrClient(baseUrl, apiKey, 5);
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ id: 1 }),
+      });
+
+      await clientWithUser.requestTv(12345, [1]);
+
+      const call = mockFetch.mock.calls[0];
+      const body = JSON.parse(call[1].body);
+      expect(body.userId).toBe(5);
+    });
   });
 
   describe('requestMovie', () => {
@@ -245,6 +272,20 @@ describe('SeerrClient', () => {
           }),
         })
       );
+    });
+
+    it('attributes the request to userId when configured', async () => {
+      const clientWithUser = new SeerrClient(baseUrl, apiKey, 5);
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ id: 1 }),
+      });
+
+      await clientWithUser.requestMovie(67890);
+
+      const call = mockFetch.mock.calls[0];
+      const body = JSON.parse(call[1].body);
+      expect(body.userId).toBe(5);
     });
   });
 

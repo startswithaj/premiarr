@@ -66,6 +66,7 @@ Copy `.env.example` to `.env` and configure:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `TELEGRAM_TOPIC_ID` | - | Topic ID for forum groups |
+| `SEERR_USER_ID` | - | Jellyseerr user ID to attribute requests to (defaults to the API key owner) |
 | `DAILY_CRON` | `0 8 * * *` | Cron expression for daily announcements |
 | `RT_TV_FILTER` | `critics:fresh~sort:newest` | Rotten Tomatoes TV filter |
 | `RT_MOVIE_FILTER` | `critics:fresh~sort:newest` | Rotten Tomatoes movie filter |
